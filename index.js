@@ -13,8 +13,9 @@ function run () {
 			spinner.succeed(`Checked ${res.length} container${res.length > 1 ? 's' : ''}:`);
 			res.forEach(c => {
 				if (!c) return;
+				if (!c.hasUpdate) return;
 				const upd = c.hasUpdate ? chalk.yellow('Update found!') : chalk.green('Up-to-date!');
-				console.log('-', c.Image.Repository + ':', upd);
+				console.log('-', c.Names + ':', upd);
 			});
 		});
 }
