@@ -10,7 +10,8 @@ function run () {
 	docker
 		.checkForUpdates()
 		.then(res => {
-			spinner.succeed(`Checked ${res.length} container${res.length > 1 ? 's' : ''}:`);
+			if (res.length === 0) spinner.succeed(' nothing to update!');
+			else spinner.succeed(` Found ${res.length} container${res.length === 1 ? '' : 's'} to update:`);
 			res.forEach(c => {
 				if (!c) return;
 				if (!c.hasUpdate) return;
