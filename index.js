@@ -17,7 +17,8 @@ function run (params) {
 				res.sort((a, b) => a.Names.localeCompare(b.Names));
 				const toUpd = res.filter(i => i.hasUpdate);
 				if (params.show_all) msg = ` Found ${res.length} container${plur(res.length)}:`;
-				else msg = ` Found ${toUpd.length} container${plur(toUpd.length)} to update${toUpd.length ? ':' : '.'}`;
+				else if (toUpd.length) msg = ` Found ${toUpd.length} container${plur(toUpd.length)} to update:`;
+				else msg = ' All containers are up-to-date.';
 				if (!params.show_all) res = toUpd;
 			}
 			spinner.succeed(msg);
