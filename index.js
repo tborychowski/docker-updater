@@ -16,9 +16,11 @@ function run (params) {
 			else {
 				res.sort((a, b) => a.Names.localeCompare(b.Names));
 				const toUpd = res.filter(i => i.hasUpdate);
-				if (params.show_all) msg = ` Found ${res.length} container${plur(res.length)}:`;
-				else if (toUpd.length) msg = ` Found ${toUpd.length} container${plur(toUpd.length)} to update:`;
-				else msg = ' All containers are up-to-date.';
+				msg = ` Found ${res.length} container${plur(res.length)}, `;
+
+				if (toUpd.length) msg += chalk.yellow(toUpd.length + ' to update:');
+				else msg += chalk.green('up-to-date') + (params.show_all ? ':' : '.');
+
 				if (!params.show_all) res = toUpd;
 			}
 			spinner.succeed(msg);
