@@ -23,9 +23,9 @@ function run (params) {
 
 				if (!params.show_all) res = toUpd;
 			}
-			spinner.succeed(msg);
 
-			res.forEach(c => {
+			spinner.succeed(msg);
+			if (res && res.length) res.forEach(c => {
 				if (!c) return;
 				const upd = c.hasUpdate ? chalk.yellow('Update found!') : chalk.green('Up-to-date!');
 				console.log('-', c.Names + ':', upd);
