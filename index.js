@@ -37,5 +37,4 @@ function run (params) {
 const args = new Args('docker updater', '1.1', 'Check for updates for running docker containers.');
 // args.add({ name: 'pull', switches: [ '-p', '--pull' ], desc: 'Pull the image' });
 args.add({ name: 'show_all', switches: [ '-a', '--all' ], desc: 'Show all containers' });
-args.add({ name: 'image', desc: 'Image name, e.g. tborychowski/sermon' });
 if (args.parse()) run(args.params);
