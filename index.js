@@ -4,12 +4,14 @@ const chalk = require('chalk');
 const ora = require('ora');
 const {docker} = require('./lib');
 
+const GH_TOKEN = '';
+
 const plur = no => no === 1 ? '' : 's';
 
 function run (params) {
 	const spinner = ora('Checking containers...').start();
 	docker
-		.checkForUpdates()
+		.checkForUpdates(GH_TOKEN || params.gh_token)
 		.then(res => {
 			let msg = '';
 			if (!res || !res.length) msg = ' no containers found!';
@@ -30,11 +32,12 @@ function run (params) {
 				const upd = c.hasUpdate ? chalk.yellow('Update found!') : chalk.green('Up-to-date!');
 				console.log('-', c.Names + ':', upd);
 			});
-		});
+		})
+		.catch(e => spinner.fail(e));
 }
 
 
 const args = new Args('docker updater', '1.1', 'Check for updates for running docker containers.');
-// args.add({ name: 'pull', switches: [ '-p', '--pull' ], desc: 'Pull the image' });
 args.add({ name: 'show_all', switches: [ '-a', '--all' ], desc: 'Show all containers' });
+args.add({ name: 'gh_token', switches: [ '-t', '--gh-token' ], desc: 'GitHub personal token with "read:packages" scope', value: 'token' });
 if (args.parse()) run(args.params);
