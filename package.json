@@ -6,13 +6,14 @@
 		"type": "git",
 		"url": "https://github.com/tborychowski/docker-updater"
 	},
+	"type": "module",
 	"scripts": {},
 	"dependencies": {
-		"arg-parser": "^1.2.0",
-		"axios": "^0.19.2",
-		"chalk": "^2.4.2",
-		"dayjs": "^1.8.28",
-		"ora": "^3.0.0"
-	},
-	"devDependencies": {}
+		"arg-parser": "^2.0.1",
+		"axios": "^0.27.2",
+		"chalk": "^5.0.1",
+		"dayjs": "^1.11.5",
+		"dotenv": "^16.0.2",
+		"ora": "^6.1.2"
+	}
 }

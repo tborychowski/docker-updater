@@ -1,17 +1,14 @@
 #!/usr/bin/env node
-const Args = require('arg-parser');
-const chalk = require('chalk');
-const ora = require('ora');
-const {docker} = require('./lib');
-
-const GH_TOKEN = '';
+import Args from 'arg-parser';
+import chalk from 'chalk';
+import ora from 'ora';
+import { checkForUpdates } from './lib/index.js';
 
 const plur = no => no === 1 ? '' : 's';
 
 function run (params) {
 	const spinner = ora('Checking containers...').start();
-	docker
-		.checkForUpdates(GH_TOKEN || params.gh_token)
+	checkForUpdates()
 		.then(res => {
 			let msg = '';
 			if (!res || !res.length) msg = ' no containers found!';
@@ -39,5 +36,4 @@ function run (params) {
 
 const args = new Args('docker updater', '1.1', 'Check for updates for running docker containers.');
 args.add({ name: 'show_all', switches: [ '-a', '--all' ], desc: 'Show all containers' });
-args.add({ name: 'gh_token', switches: [ '-t', '--gh-token' ], desc: 'GitHub personal token with "read:packages" scope', value: 'token' });
 if (args.parse()) run(args.params);
